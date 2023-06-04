@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javapandeng.mapper.Order2Mapper">
+    <!--实体类与数据库映射字段部分-->
+    <resultMap id="ResultMapOrder2" type="com.javapandeng.po.Order2">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="lastid" column="lastid" jdbcType="INTEGER"/>
+        <result property="count" column="count" jdbcType="INTEGER"/>
+        <result property="nowrmb" column="nowrmb" jdbcType="DOUBLE"/>
+        <result property="price" column="price" jdbcType="DOUBLE"/>
+        <result property="date" column="date" jdbcType="VARCHAR"/>
+        <result property="date2" column="date2" jdbcType="VARCHAR"/>
+        <result property="detel" column="detel" jdbcType="VARCHAR"/>
+        <result property="detel2" column="detel2" jdbcType="VARCHAR"/>
+        <result property="weizhi" column="weizhi" jdbcType="VARCHAR"/>
+        <result property="empname" column="empname" jdbcType="VARCHAR"/>
+        <result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 声明数据库字段 -->
+    <sql id="Order2_field">
+        id,uid,lastid,count,nowrmb,price,date,date2,detel,detel2,weizhi,empname,isDelete
+    </sql>
+
+    <!-- 实体类属性-->
+    <sql id="Order2_insert">
+        #{id},#{uid},#{lastid},#{count},#{nowrmb},#{price},#{date},#{date2},#{detel},#{detel2},#{weizhi},#{empname},#{isDelete}
+    </sql>
+
+    <!-- 更新结果  -->
+    <sql id="Order2_update">
+        <if test="id != null">
+            id = #{id},
+        </if>
+        <if test="uid != null">
+            uid = #{uid},
+        </if>
+        <if test="lastid != null">
+            lastid = #{lastid},
+        </if>
+        <if test="count != null">
+            count = #{count},
+        </if>
+        <if test="nowrmb != null">
+            nowrmb = #{nowrmb},
+        </if>
+        <if test="price != null">
+            price = #{price},
+        </if>
+        <if test="date != null">
+            date = #{date},
+        </if>
+        <if test="date2 != null">
+            date2 = #{date2},
+        </if>
+        <if test="detel != null">
+            detel = #{detel},
+        </if>
+        <if test="detel2 != null">
+            detel2 = #{detel2},
+        </if>
+        <if test="weizhi != null">
+            weizhi = #{weizhi},
+        </if>
+        <if test="empname != null">
+            empname = #{empname},
+        </if>
+        <if test="isDelete != null">
+            isDelete = #{isDelete},
+        </if>
+    </sql>
+
+    <!-- 查询时条件   -->
+    <sql id="Order2_where">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="uid != null">
+            and uid = #{uid}
+        </if>
+        <if test="lastid != null">
+            and lastid = #{lastid}
+        </if>
+        <if test="count != null">
+            and count = #{count}
+        </if>
+        <if test="nowrmb != null">
+            and nowrmb = #{nowrmb}
+        </if>
+        <if test="price != null">
+            and price = #{price}
+        </if>
+        <if test="date != null">
+            and date = #{date}
+        </if>
+        <if test="date2 != null">
+            and date2 = #{date2}
+        </if>
+        <if test="detel != null">
+            and detel = #{detel}
+        </if>
+        <if test="detel2 != null">
+            and detel2 = #{detel2}
+        </if>
+        <if test="weizhi != null">
+            and weizhi = #{weizhi}
+        </if>
+        <if test="empname != null">
+            and empname = #{empname}
+        </if>
+        <if test="isDelete != null">
+            and isDelete = #{isDelete}
+        </if>
+    </sql>
+
+    <!--    新增        -->
+    <!--    参数：实体类-->
+    <!--    返回：主键 -->
+    <insert id="insert" parameterType="com.javapandeng.po.Order2" useGeneratedKeys="true" keyProperty="id">
+        insert into orderinfo2(
+        <include refid="Order2_field"/>
+        ) values(
+        <include refid="Order2_insert"/>
+        )
+    </insert>
+
+    <!-- 根据实体主键删除一个实体-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from orderinfo2 where id=#{id}
+    </delete>
+
+    <!-- 通过实体删除-->
+    <delete id="deleteByEntity" parameterType="com.javapandeng.po.Order2">
+        delete from orderinfo2 where 1=1
+        <include refid="Order2_where"/>
+    </delete>
+
+    <!-- 通过map删除 -->
+    <delete id="deleteByMap" parameterType="java.util.HashMap">
+        delete from orderinfo2 where 1=1
+        <include refid="Order2_where"/>
+    </delete>
+
+    <!-- 更新一个实体 -->
+    <update id="update" parameterType="com.javapandeng.po.Order2">
+        update orderinfo2
+        <set>
+            <include refid="Order2_update"/>
+        </set>
+        where 1=1
+        <include refid="Order2_where"/>
+    </update>
+
+    <!-- 通过id进行修改-->
+    <update id="updateById" parameterType="com.javapandeng.po.Order2">
+        update orderinfo2
+        <set>
+            <include refid="Order2_update"/>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 根据参数查询-->
+    <select id="listByMap" resultMap="ResultMapOrder2" parameterType="map">
+        select <include refid="Order2_field"/>
+        from orderinfo2 where 1=1
+        <include refid="Order2_where"/>
+    </select>
+
+    <!-- 查询整个表 -->
+    <select id="listAll" resultMap="ResultMapOrder2">
+        select <include refid="Order2_field"/>
+        from orderinfo2
+    </select>
+
+    <!-- 查询所有实体,根据实体属性值为判断条件查询所有实体-->
+    <select id="listAllByEntity" resultMap="ResultMapOrder2" parameterType="com.javapandeng.po.Order2">
+        select <include refid="Order2_field"/>
+        from orderinfo2 where 1=1
+        <include refid="Order2_where"/>
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="load" resultMap="ResultMapOrder2" parameterType="java.lang.Integer">
+        select <include refid="Order2_field"/>
+        from orderinfo2 where id=#{id}
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="getById" resultMap="ResultMapOrder2" parameterType="java.lang.Integer">
+        select <include refid="Order2_field"/>
+        from orderinfo2 where id=#{id}
+    </select>
+
+    <!-- 通过map查询-->
+    <select id="getByMap" resultMap="ResultMapOrder2" parameterType="map">
+        select <include refid="Order2_field"/>
+        from orderinfo2 where 1=1
+        <include refid="Order2_where"/>
+    </select>
+
+    <!--通过对象查询-不分页-->
+    <select id="getByEntity" resultMap="ResultMapOrder2" parameterType="com.javapandeng.po.Order2">
+        select <include refid="Order2_field"/>
+        from orderinfo2 where 1=1
+        <include refid="Order2_where"/>
+    </select>
+
+    <!-- 通过map查询分页-->
+    <select id="findByMap" resultMap="ResultMapOrder2" parameterType="map">
+        select <include refid="Order2_field"/>
+        from orderinfo2 where 1=1
+        <include refid="Order2_where"/>
+    </select>
+
+    <!--通过对象查询分页-->
+    <select id="findByEntity" resultMap="ResultMapOrder2" parameterType="com.javapandeng.po.Order2">
+        select <include refid="Order2_field"/>
+        from orderinfo2 where 1=1
+        <include refid="Order2_where"/>
+    </select>
+
+    <!-- 批量新增-->
+    <select id="insertBatch" parameterType="java.util.List">
+        insert into orderinfo2(
+        <include refid="Order2_field"/>
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id},#{item.uid},#{item.lastid},#{item.count},#{item.nowrmb},#{item.price},#{item.date},#{item.date2},#{item.detel},#{item.detel2},#{item.weizhi},#{item.empname},#{item.isDelete})
+        </foreach>
+    </select>
+
+    <!-- 批量修改-->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update orderinfo2
+            <set>
+                <if test="item.id != null">
+                    id = #{item.id},
+                </if>
+                <if test="item.uid != null">
+                    uid = #{item.uid},
+                </if>
+                <if test="item.lastid != null">
+                    lastid = #{item.lastid},
+                </if>
+                <if test="item.count != null">
+                    count = #{item.count},
+                </if>
+                <if test="item.nowrmb != null">
+                    nowrmb = #{item.nowrmb},
+                </if>nowrmb
+                <if test="item.price != null">
+                    price = #{item.price},
+                </if>
+                <if test="item.date != null">
+                    date = #{item.date},
+                </if>
+                <if test="item.date2 != null">
+                    date2 = #{item.date2},
+                </if>
+                <if test="item.detel != null">
+                    detel = #{item.detel},
+                </if>
+                <if test="item.detel2 != null">
+                    detel2 = #{item.detel2},
+                </if>
+                <if test="item.weizhi != null">
+                    weizhi = #{item.weizhi},
+                </if>
+                <if test="item.empname != null">
+                    empname = #{item.empname},
+                </if>
+                <if test="item.isDelete != null">
+                    isDelete = #{item.isDelete},
+                </if>
+            </set>
+            where 1=1
+            <if test="item.id != null">
+                and id = #{item.id}
+            </if>
+        </foreach>
+    </update>
+
+    <!-- 封装纯sql语法-->
+    <!-- 查询一个对象返回map-->
+    <select id="getBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回实体类-->
+    <select id="getBySqlReturnEntity" resultMap="ResultMapOrder2">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回map列表-->
+    <select id="listBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询列表返回实体-->
+    <select id="listBySqlReturnEntity" resultMap="ResultMapOrder2">
+        ${sql}
+    </select>
+
+    <!-- 查询分页-->
+    <select id="findBySqlRerturnEntity" resultMap="ResultMapOrder2">
+        ${sql}
+    </select>
+
+    <!-- 通过sql修改-->
+    <update id="updateBysql">
+        ${sql}
+    </update>
+
+    <!-- 通过sql删除-->
+    <delete id="deleteBySql">
+        ${sql}
+    </delete>
+</mapper>

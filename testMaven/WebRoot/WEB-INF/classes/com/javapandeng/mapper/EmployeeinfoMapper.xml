@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javapandeng.mapper.EmployeeinfoMapper">
+    <!--实体类与数据库映射字段部分-->
+    <resultMap id="ResultMapEmployeeinfo" type="com.javapandeng.po.Employeeinfo">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="itemid" column="itemid" jdbcType="INTEGER"/>
+        <result property="employeename" column="employeename" jdbcType="VARCHAR"/>
+        <result property="faceurl" column="faceurl" jdbcType="VARCHAR"/>
+        <result property="healthcertificateurl" column="healthcertificateurl" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="rmb" column="rmb" jdbcType="INTEGER"/>
+        <result property="rmb2" column="rmb2" jdbcType="INTEGER"/>
+        <result property="rmb3" column="rmb3" jdbcType="INTEGER"/>
+        <result property="data1" column="data1" jdbcType="VARCHAR"/>
+        <result property="data2" column="data2" jdbcType="VARCHAR"/>
+        <result property="detel" column="detel" jdbcType="VARCHAR"/>
+        <result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 声明数据库字段 -->
+    <sql id="Employeeinfo_field">
+        id,itemid,employeename,faceurl,healthcertificateurl,phone,address,rmb,rmb2,rmb3,data1,data2,detel,isDelete
+    </sql>
+
+    <!-- 实体类属性-->
+    <sql id="Employeeinfo_insert">
+        #{id},#{itemid},#{employeename},#{faceurl},#{healthcertificateurl},#{phone},#{address},#{rmb},#{rmb2},#{rmb3},#{data1},#{data2},#{detel},#{isDelete}
+    </sql>
+
+    <!-- 更新结果  -->
+    <sql id="Employeeinfo_update">
+        <if test="id != null">
+            id = #{id},
+        </if>
+        <if test="itemid != null">
+            itemid = #{itemid},
+        </if>
+        <if test="employeename != null">
+            employeename = #{employeename},
+        </if>
+        <if test="faceurl != null">
+            faceurl = #{faceurl},
+        </if>
+        <if test="healthcertificateurl != null">
+            healthcertificateurl = #{healthcertificateurl},
+        </if>
+        <if test="phone != null">
+            phone = #{phone},
+        </if>
+        <if test="address != null">
+            address = #{address},
+        </if>
+        <if test="rmb != null">
+            rmb = #{rmb},
+        </if>
+        <if test="rmb2 != null">
+            rmb2 = #{rmb2},
+        </if>
+        <if test="rmb3 != null">
+            rmb3 = #{rmb3},
+        </if>
+        <if test="data1 != null">
+            data1 = #{data1},
+        </if>
+        <if test="data2 != null">
+            data2 = #{data2},
+        </if>
+        <if test="detel != null">
+            detel = #{detel},
+        </if>
+        <if test="isDelete != null">
+            isDelete = #{isDelete}
+        </if>
+    </sql>
+
+    <!-- 查询时条件   -->
+    <sql id="Employeeinfo_where">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="itemid != null">
+            and itemid = #{itemid}
+        </if>
+        <if test="employeename != null">
+            and employeename = #{employeename}
+        </if>
+        <if test="faceurl != null">
+            and faceurl = #{faceurl}
+        </if>
+        <if test="healthcertificateurl != null">
+            and healthcertificateurl = #{healthcertificateurl}
+        </if>
+        <if test="phone != null">
+            and phone = #{phone}
+        </if>
+        <if test="address != null">
+            and address = #{address}
+        </if>
+
+        <if test="rmb != null">
+            and rmb = #{rmb}
+        </if>
+        <if test="rmb2 != null">
+            and rmb2 = #{rmb2}
+        </if>
+        <if test="rmb3 != null">
+            and rmb3 = #{rmb3}
+        </if>
+        <if test="data1 != null">
+            and data1 = #{data1}
+        </if>
+        <if test="data2 != null">
+            and data2 = #{data2}
+        </if>
+        <if test="detel != null">
+            and detel = #{detel}
+        </if>
+        <if test="isDelete != null">
+            and isDelete = #{isDelete}
+        </if>
+    </sql>
+
+    <!--    新增        -->
+    <!--    参数：实体类-->
+    <!--    返回：主键 -->
+    <insert id="insert" parameterType="com.javapandeng.po.Employeeinfo" useGeneratedKeys="true" keyProperty="id">
+        insert into employeeinfo(
+        <include refid="Employeeinfo_field"/>
+        ) values(
+        <include refid="Employeeinfo_insert"/>
+        )
+    </insert>
+
+    <!-- 根据实体主键删除一个实体-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from employeeinfo where id=#{id}
+    </delete>
+
+    <!-- 通过实体删除-->
+    <delete id="deleteByEntity" parameterType="com.javapandeng.po.Employeeinfo">
+        delete from employeeinfo where 1=1
+        <include refid="Employeeinfo_where"/>
+    </delete>
+
+    <!-- 通过map删除 -->
+    <delete id="deleteByMap" parameterType="java.util.HashMap">
+        delete from employeeinfo where 1=1
+        <include refid="Employeeinfo_where"/>
+    </delete>
+
+    <!-- 更新一个实体 -->
+    <update id="update" parameterType="com.javapandeng.po.Employeeinfo">
+        update employeeinfo
+        <set>
+            <include refid="Employeeinfo_update"/>
+        </set>
+        where 1=1
+        <include refid="Employeeinfo_where"/>
+    </update>
+
+    <!-- 通过id进行修改-->
+    <update id="updateById" parameterType="com.javapandeng.po.Employeeinfo">
+        update employeeinfo
+        <set>
+            <include refid="Employeeinfo_update"/>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 根据参数查询-->
+    <select id="listByMap" resultMap="ResultMapEmployeeinfo" parameterType="map">
+        select <include refid="Employeeinfo_field"/>
+        from employeeinfo where 1=1
+        <include refid="Employeeinfo_where"/>
+    </select>
+
+    <!-- 查询整个表 -->
+    <select id="listAll" resultMap="ResultMapEmployeeinfo">
+        select <include refid="Employeeinfo_field"/>
+        from employeeinfo
+    </select>
+
+    <!-- 查询所有实体,根据实体属性值为判断条件查询所有实体-->
+    <select id="listAllByEntity" resultMap="ResultMapEmployeeinfo" parameterType="com.javapandeng.po.Employeeinfo">
+        select <include refid="Employeeinfo_field"/>
+        from employeeinfo where 1=1
+        <include refid="Employeeinfo_where"/>
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="load" resultMap="ResultMapEmployeeinfo" parameterType="java.lang.Integer">
+        select <include refid="Employeeinfo_field"/>
+        from employeeinfo where id=#{id}
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="getById" resultMap="ResultMapEmployeeinfo" parameterType="java.lang.Integer">
+        select <include refid="Employeeinfo_field"/>
+        from employeeinfo where id=#{id}
+    </select>
+
+    <!-- 通过map查询-->
+    <select id="getByMap" resultMap="ResultMapEmployeeinfo" parameterType="map">
+        select <include refid="Employeeinfo_field"/>
+        from employeeinfo where 1=1
+        <include refid="Employeeinfo_where"/>
+    </select>
+
+    <!--通过对象查询-不分页-->
+    <select id="getByEntity" resultMap="ResultMapEmployeeinfo" parameterType="com.javapandeng.po.Employeeinfo">
+        select <include refid="Employeeinfo_field"/>
+        from employeeinfo where 1=1
+        <include refid="Employeeinfo_where"/>
+    </select>
+
+    <!-- 通过map查询分页-->
+    <select id="findByMap" resultMap="ResultMapEmployeeinfo" parameterType="map">
+        select <include refid="Employeeinfo_field"/>
+        from employeeinfo where 1=1
+        <include refid="Employeeinfo_where"/>
+    </select>
+
+    <!--通过对象查询分页-->
+    <select id="findByEntity" resultMap="ResultMapEmployeeinfo" parameterType="com.javapandeng.po.Employeeinfo">
+        select <include refid="Employeeinfo_field"/>
+        from employeeinfo where 1=1
+        <include refid="Employeeinfo_where"/>
+    </select>
+
+    <!-- 批量新增-->
+    <select id="insertBatch" parameterType="java.util.List">
+        insert into employeeinfo(
+        <include refid="Employeeinfo_field"/>
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id},#{item.itemid},#{item.employeename},#{item.faceurl},#{item.healthcertificateurl},#{item.phone},#{item.address},#{item.rmb},#{item.rmb2},#{item.data1},#{item.data2},#{item.data3},#{item.detel},#{item.isDelete}
+        </foreach>
+    </select>
+
+    <!-- 批量修改-->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update employeeinfo
+            <set>
+                <if test="item.id != null">
+                    id = #{item.id},
+                </if>
+
+                <if test="item.itemid != null">
+                    itemid = #{item.itemid},
+                </if>
+                <if test="item.employeename != null">
+                    employeename = #{item.employeename},
+                </if>
+                <if test="item.faceurl != null">
+                    faceurl = #{item.faceurl},
+                </if>
+                <if test="item.healthcertificateurl != null">
+                    healthcertificateurl = #{item.healthcertificateurl},
+                </if>
+                <if test="item.phone != null">
+                    phone = #{item.phone},
+                </if>
+                <if test="item.address != null">
+                    address = #{item.address}
+                </if>
+
+                <if test="item.rmb != null">
+                    rmb = #{item.rmb}
+                </if>
+                <if test="item.rmb2 != null">
+                    rmb2 = #{item.rmb2}
+                </if>
+                <if test="item.rmb3 != null">
+                    rmb3 = #{item.rmb3}
+                </if>
+                <if test="item.data1 != null">
+                    data1 = #{data1}
+                </if>
+                <if test="item.data2 != null">
+                    data2 = #{item.data2}
+                </if>
+                <if test="item.detel != null">
+                    detel = #{item.detel}
+                </if>
+                <if test="item.isDelete != null">
+                    isDelete = #{item.isDelete}
+                </if>
+
+            </set>
+            where 1=1
+            <if test="item.id != null">
+                and id = #{item.id}
+            </if>
+        </foreach>
+    </update>
+
+    <!-- 封装纯sql语法-->
+    <!-- 查询一个对象返回map-->
+    <select id="getBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回实体类-->
+    <select id="getBySqlReturnEntity" resultMap="ResultMapEmployeeinfo">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回map列表-->
+    <select id="listBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询列表返回实体-->
+    <select id="listBySqlReturnEntity" resultMap="ResultMapEmployeeinfo">
+        ${sql}
+    </select>
+
+    <!-- 查询分页-->
+    <select id="findBySqlRerturnEntity" resultMap="ResultMapEmployeeinfo">
+        ${sql}
+    </select>
+
+    <!-- 通过sql修改-->
+    <update id="updateBysql">
+        ${sql}
+    </update>
+
+    <!-- 通过sql删除-->
+    <delete id="deleteBySql">
+        ${sql}
+    </delete>
+</mapper>

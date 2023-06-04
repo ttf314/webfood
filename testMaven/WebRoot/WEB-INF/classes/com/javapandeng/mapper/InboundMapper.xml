@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javapandeng.mapper.InboundMapper">
+    <!--实体类与数据库映射字段部分-->
+    <resultMap id="ResultMapInbound" type="com.javapandeng.po.Inbound">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="did" column="did" jdbcType="INTEGER"/>
+        <result property="rmb" column="rmb" jdbcType="INTEGER"/>
+        <result property="goods_id" column="goods_id" jdbcType="VARCHAR"/>
+        <result property="goods_name" column="goods_name" jdbcType="VARCHAR"/>
+        <result property="quantity" column="quantity" jdbcType="INTEGER"/>
+        <result property="remaining" column="remaining" jdbcType="INTEGER"/>
+        <result property="inbound_date" column="inbound_date" jdbcType="VARCHAR"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="detel" column="detel" jdbcType="VARCHAR"/>
+        <result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 声明数据库字段 -->
+    <sql id="Inbound_field">
+        id,did,goods_id,goods_name,quantity,remaining,inbound_date,operator,rmb,detel,isDelete
+    </sql>
+
+    <!-- 实体类属性-->
+    <sql id="Inbound_insert">
+        #{id},#{did},#{goods_id},#{goods_name},#{quantity},#{remaining},#{inbound_date},#{operator},#{rmb},#{detel},#{isDelete}
+    </sql>
+
+    <!-- 更新结果  -->
+    <sql id="Inbound_update">
+        <if test="did != null">
+            did = #{did},
+        </if>
+        <if test="goods_id != null">
+            goods_id = #{goods_id},
+        </if>
+        <if test="rmb != null">
+            rmb = #{rmb},
+        </if>
+        <if test="goods_name != null">
+            goods_name = #{goods_name},
+        </if>
+        <if test="quantity != null">
+            quantity = #{quantity},
+        </if>
+        <if test="remaining != null">
+            remaining = #{remaining},
+        </if>
+        <if test="inbound_date != null">
+            inbound_date = #{inbound_date},
+        </if>
+        <if test="operator != null">
+            operator = #{operator},
+        </if>
+        <if test="detel != null">
+            detel = #{detel},
+        </if>
+        <if test="isDelete != null">
+            isDelete = #{isDelete}
+        </if>
+    </sql>
+
+    <!-- 查询时条件   -->
+    <sql id="Inbound_where">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="did != null">
+            and did = #{did}
+        </if>
+        <if test="rmb != null">
+            and rmb = #{rmb}
+        </if>
+        <if test="goods_id != null">
+            and goods_id = #{goods_id}
+        </if>
+        <if test="goods_name != null">
+            and goods_name = #{goods_name}
+        </if>
+        <if test="quantity != null">
+            and quantity = #{quantity}
+        </if>
+        <if test="remaining != null">
+            and remaining = #{remaining}
+        </if>
+        <if test="inbound_date != null">
+            and inbound_date = #{inbound_date}
+        </if>
+        <if test="operator != null">
+            and operator = #{operator}
+        </if>
+        <if test="detel != null">
+            and detel = #{detel}
+        </if>
+        <if test="isDelete != null">
+            and isDelete = #{isDelete}
+        </if>
+    </sql>
+
+    <!--    新增        -->
+    <!--    参数：实体类-->
+    <!--    返回：主键 -->
+    <insert id="insert" parameterType="com.javapandeng.po.Inbound" useGeneratedKeys="true" keyProperty="id">
+        insert into inbound(
+        <include refid="Inbound_field"/>
+        ) values(
+        <include refid="Inbound_insert"/>
+        )
+    </insert>
+
+    <!-- 根据实体主键删除一个实体-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from inbound where id=#{id}
+    </delete>
+
+    <!-- 通过实体删除-->
+    <delete id="deleteByEntity" parameterType="com.javapandeng.po.Inbound">
+        delete from inbound where 1=1
+        <include refid="Inbound_where"/>
+    </delete>
+
+    <!-- 通过map删除 -->
+    <delete id="deleteByMap" parameterType="java.util.HashMap">
+        delete from inbound where 1=1
+        <include refid="Inbound_where"/>
+    </delete>
+
+    <!-- 更新一个实体 -->
+    <update id="update" parameterType="com.javapandeng.po.Inbound">
+        update inbound
+        <set>
+            <include refid="Inbound_update"/>
+        </set>
+        where 1=1
+        <include refid="Inbound_where"/>
+    </update>
+
+    <!-- 通过id进行修改-->
+    <update id="updateById" parameterType="com.javapandeng.po.Inbound">
+        update inbound
+        <set>
+            <include refid="Inbound_update"/>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 根据参数查询-->
+    <select id="listByMap" resultMap="ResultMapInbound" parameterType="map">
+        select <include refid="Inbound_field"/>
+        from inbound where 1=1
+        <include refid="Inbound_where"/>
+    </select>
+
+    <!-- 查询整个表 -->
+    <select id="listAll" resultMap="ResultMapInbound">
+        select <include refid="Inbound_field"/>
+        from inbound
+    </select>
+
+    <!-- 查询所有实体,根据实体属性值为判断条件查询所有实体-->
+    <select id="listAllByEntity" resultMap="ResultMapInbound" parameterType="com.javapandeng.po.Inbound">
+        select <include refid="Inbound_field"/>
+        from inbound where 1=1
+        <include refid="Inbound_where"/>
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="load" resultMap="ResultMapInbound" parameterType="java.lang.Integer">
+        select <include refid="Inbound_field"/>
+        from inbound where id=#{id}
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="getById" resultMap="ResultMapInbound" parameterType="java.lang.Integer">
+        select <include refid="Inbound_field"/>
+        from inbound where id=#{id}
+    </select>
+
+    <!-- 通过map查询-->
+    <select id="getByMap" resultMap="ResultMapInbound" parameterType="map">
+        select <include refid="Inbound_field"/>
+        from inbound where 1=1
+        <include refid="Inbound_where"/>
+    </select>
+
+    <!--通过对象查询-不分页-->
+    <select id="getByEntity" resultMap="ResultMapInbound" parameterType="com.javapandeng.po.Inbound">
+        select <include refid="Inbound_field"/>
+        from inbound where 1=1
+        <include refid="Inbound_where"/>
+    </select>
+
+    <!-- 通过map查询分页-->
+    <select id="findByMap" resultMap="ResultMapInbound" parameterType="map">
+        select <include refid="Inbound_field"/>
+        from inbound where 1=1
+        <include refid="Inbound_where"/>
+    </select>
+
+    <!--通过对象查询分页-->
+    <select id="findByEntity" resultMap="ResultMapInbound" parameterType="com.javapandeng.po.Inbound">
+        select <include refid="Inbound_field"/>
+        from inbound where 1=1
+        <include refid="Inbound_where"/>
+    </select>
+
+    <!-- 批量新增-->
+    <select id="insertBatch" parameterType="java.util.List">
+        insert into inbound(
+        <include refid="Inbound_field"/>
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id},#{item.did},#{item.rmb},#{item.goods_id},#{item.goods_name},#{item.quantity},#{item.remaining},#{item.inbound_date},#{item.operator},#{item.detel},#{item.isDelete})
+        </foreach>
+    </select>
+
+    <!-- 批量修改-->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update inbound
+            <set>
+                <if test="item.did != null">
+                    did = #{item.did},
+                </if>
+                <if test="item.goods_id != null">
+                    goods_id = #{item.goods_id},
+                </if>
+                <if test="item.rmb != null">
+                    rmb = #{item.rmb},
+                </if>
+                <if test="item.goods_name != null">
+                    goods_name = #{item.goods_name},
+                </if>
+                <if test="item.quantity != null">
+                    quantity = #{item.quantity},
+                </if>
+                <if test="item.remaining != null">
+                    remaining = #{item.remaining},
+                </if>
+                <if test="item.inbound_date != null">
+                    inbound_date = #{item.inbound_date},
+                </if>
+                <if test="item.operator != null">
+                    operator = #{item.operator},
+                </if>
+                <if test="item.detel != null">
+                    detel = #{item.detel},
+                </if>
+                <if test="item.isDelete != null">
+                    isDelete = #{item.isDelete}
+                </if>
+            </set>
+            where 1=1
+            <if test="item.id != null">
+                and id = #{item.id}
+            </if>
+        </foreach>
+    </update>
+
+    <!-- 封装纯sql语法-->
+    <!-- 查询一个对象返回map-->
+    <select id="getBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回实体类-->
+    <select id="getBySqlReturnEntity" resultMap="ResultMapInbound">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回map列表-->
+    <select id="listBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询列表返回实体-->
+    <select id="listBySqlReturnEntity" resultMap="ResultMapInbound">
+        ${sql}
+    </select>
+
+    <!-- 查询分页-->
+    <select id="findBySqlRerturnEntity" resultMap="ResultMapInbound">
+        ${sql}
+    </select>
+
+    <!-- 通过sql修改-->
+    <update id="updateBysql">
+        ${sql}
+    </update>
+
+    <!-- 通过sql删除-->
+    <delete id="deleteBySql">
+        ${sql}
+    </delete>
+</mapper>

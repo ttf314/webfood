@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javapandeng.mapper.MealsMapper">
+    <!--实体类与数据库映射字段部分-->
+    <resultMap id="ResultMapMeals" type="com.javapandeng.po.Meals">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="VARCHAR"/>
+        <result property="scNum" column="scNum" jdbcType="INTEGER"/>
+        <result property="gmNum" column="gmNum" jdbcType="INTEGER"/>
+        <result property="url1" column="url1" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="pam1" column="pam1" jdbcType="VARCHAR"/>
+        <result property="val1" column="val1" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="zk" column="zk" jdbcType="INTEGER"/>
+        <result property="categoryIdOne" column="category_id_one" jdbcType="INTEGER"/>
+        <result property="categoryIdTwo" column="category_id_two" jdbcType="INTEGER"/>
+        <result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+        <!--联系 -->
+        <association property="yiji" column="category_id_one" select="com.javapandeng.mapper.ItemCategoryMapper.load"/>
+        <association property="erji" column="category_id_two" select="com.javapandeng.mapper.ItemCategoryMapper.load"/>
+    </resultMap>
+
+    <!-- 声明数据库字段 -->
+    <sql id="Meals_field">
+        id,name,price,scNum,gmNum,url1,description,pam1,val1,type,zk,
+        category_id_one,category_id_two,isDelete
+    </sql>
+
+    <!-- 实体类属性-->
+    <sql id="Meals_insert">
+        #{id},#{name},#{price},#{scNum},#{gmNum},#{url1},#{description},#{pam1},
+        #{val1},#{type},#{zk},#{categoryIdOne},#{categoryIdTwo}, #{isDelete}
+    </sql>
+
+    <!-- 更新结果  -->
+    <sql id="Meals_update">
+
+        <if test="name != null">
+            name = #{name},
+        </if>
+        <if test="price != null">
+            price = #{price},
+        </if>
+        <if test="scNum != null">
+            scNum = #{scNum},
+        </if>
+        <if test="gmNum != null">
+            gmNum = #{gmNum},
+        </if>
+        <if test="url1 != null">
+            url1 = #{url1},
+        </if>
+        <if test="description != null">
+            description = #{description},
+        </if>
+        <if test="pam1 != null">
+            pam1 = #{pam1},
+        </if>
+        <if test="val1 != null">
+            val1 = #{val1},
+        </if>
+        <if test="type != null">
+            type = #{type},
+        </if>
+        <if test="zk != null">
+            zk = #{zk},
+        </if>
+        <if test="categoryIdOne != null">
+            category_id_one = #{categoryIdOne},
+        </if>
+        <if test="categoryIdTwo != null">
+            category_id_two = #{categoryIdTwo},
+        </if>
+        <if test="isDelete != null">
+            isDelete = #{isDelete}
+        </if>
+    </sql>
+
+    <!-- 查询时条件   -->
+    <sql id="Meals_where">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="name != null">
+            and name = #{name}
+        </if>
+        <if test="price != null">
+            and price = #{price}
+        </if>
+
+        <if test="scNum != null">
+            and scNum = #{scNum}
+        </if>
+        <if test="gmNum != null">
+            and gmNum = #{gmNum}
+        </if>
+        <if test="url1 != null">
+            and url1 = #{url1}
+        </if>
+        <if test="description != null">
+            and description = #{description}
+        </if>
+        <if test="pam1 != null">
+            and pam1 = #{pam1}
+        </if>
+        <if test="val1 != null">
+            and val1 = #{val1}
+        </if>
+        <if test="type != null">
+            and type = #{type}
+        </if>
+        <if test="zk != null">
+            and zk = #{zk}
+        </if>
+        <if test="categoryIdOne != null">
+            and category_id_one = #{categoryIdOne}
+        </if>
+        <if test="categoryIdTwo != null">
+            and category_id_two = #{categoryIdTwo}
+        </if>
+        <if test="isDelete != null">
+            and isDelete = #{isDelete}
+        </if>
+    </sql>
+
+    <!--    新增        -->
+    <!--    参数：实体类-->
+    <!--    返回：主键 -->
+    <insert id="insert" parameterType="com.javapandeng.po.Meals" useGeneratedKeys="true" keyProperty="id">
+        insert into meals(
+        <include refid="Meals_field"/>
+        ) values(
+        <include refid="Meals_insert"/>
+        )
+    </insert>
+
+    <!-- 根据实体主键删除一个实体-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from meals where id=#{id}
+    </delete>
+
+    <!-- 通过实体删除-->
+    <delete id="deleteByEntity" parameterType="com.javapandeng.po.Meals">
+        delete from meals where 1=1
+        <include refid="Meals_where"/>
+    </delete>
+
+    <!-- 通过map删除 -->
+    <delete id="deleteByMap" parameterType="java.util.HashMap">
+        delete from meals where 1=1
+        <include refid="Meals_where"/>
+    </delete>
+
+    <!-- 更新一个实体 -->
+    <update id="update" parameterType="com.javapandeng.po.Meals">
+        update meals
+        <set>
+            <include refid="Meals_update"/>
+        </set>
+        where 1=1
+        <include refid="Meals_where"/>
+    </update>
+
+    <!-- 通过id进行修改-->
+    <update id="updateById" parameterType="com.javapandeng.po.Meals">
+        update meals
+        <set>
+            <include refid="Meals_update"/>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 根据参数查询-->
+    <select id="listByMap" resultMap="ResultMapMeals" parameterType="map">
+        select <include refid="Meals_field"/>
+        from meals where 1=1
+        <include refid="Meals_where"/>
+    </select>
+
+    <!-- 查询整个表 -->
+    <select id="listAll" resultMap="ResultMapMeals">
+        select <include refid="Meals_field"/>
+        from meals
+    </select>
+
+    <!-- 查询所有实体,根据实体属性值为判断条件查询所有实体-->
+    <select id="listAllByEntity" resultMap="ResultMapMeals" parameterType="com.javapandeng.po.Meals">
+        select <include refid="Meals_field"/>
+        from meals where 1=1
+        <include refid="Meals_where"/>
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="load" resultMap="ResultMapMeals" parameterType="java.lang.Integer">
+        select <include refid="Meals_field"/>
+        from meals where id=#{id}
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="getById" resultMap="ResultMapMeals" parameterType="java.lang.Integer">
+        select <include refid="Meals_field"/>
+        from meals where id=#{id}
+    </select>
+
+    <!-- 通过map查询-->
+    <select id="getByMap" resultMap="ResultMapMeals" parameterType="map">
+        select <include refid="Meals_field"/>
+        from meals where 1=1
+        <include refid="Meals_where"/>
+    </select>
+
+    <!--通过对象查询-不分页-->
+    <select id="getByEntity" resultMap="ResultMapMeals" parameterType="com.javapandeng.po.Meals">
+        select <include refid="Meals_field"/>
+        from meals where 1=1
+        <include refid="Meals_where"/>
+    </select>
+
+    <!-- 通过map查询分页-->
+    <select id="findByMap" resultMap="ResultMapMeals" parameterType="map">
+        select <include refid="Meals_field"/>
+        from meals where 1=1
+        <include refid="Meals_where"/>
+    </select>
+
+    <!--通过对象查询分页-->
+    <select id="findByEntity" resultMap="ResultMapMeals" parameterType="com.javapandeng.po.Meals">
+        select <include refid="Meals_field"/>
+        from meals where 1=1
+        <include refid="Meals_where"/>
+    </select>
+
+    <!-- 批量新增-->
+    <select id="insertBatch" parameterType="java.util.List">
+        insert into meals(
+        <include refid="Meals_field"/>
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.name},#{item.price},#{item.scNum},#{item.gmNum},#{item.url1},#{item.description},#{item.pam1},
+            #{item.val1},#{item.type},#{item.zk},#{item.categoryIdOne},#{item.categoryIdTwo},#{item.isDelete})
+        </foreach>
+    </select>
+
+    <!-- 批量修改-->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update meals
+            <set>
+                <if test="item.name != null">
+                    name = #{item.name},
+                </if>
+                <if test="item.price != null">
+                    price = #{item.price},
+                </if>
+                <if test="item.scNum != null">
+                    scNum = #{item.scNum},
+                </if>
+                <if test="item.gmNum != null">
+                    gmNum = #{item.gmNum},
+                </if>
+                <if test="item.url1 != null">
+                    url1 = #{item.url1},
+                </if>
+                <if test="item.description != null">
+                    description = #{item.description},
+                </if>
+                <if test="item.pam1 != null">
+                pam1 = #{item.pam1},
+                </if>
+                <if test="item.val1 != null">
+                    val1 = #{item.val1},
+                </if>
+                <if test="item.type != null">
+                    type = #{item.type},
+                </if>
+                <if test="item.zk != null">
+                    zk = #{item.zk},
+                </if>
+                <if test="item.categoryIdOne != null">
+                    category_id_one = #{item.categoryIdOne},
+                </if>
+                <if test="item.categoryIdTwo != null">
+                    category_id_two = #{item.categoryIdTwo},
+                </if>
+
+                <if test="item.isDelete != null">
+                    realName = #{item.isDelete}
+                </if>
+            </set>
+            where 1=1
+            <if test="item.id != null">
+                and id = #{item.id}
+            </if>
+        </foreach>
+    </update>
+
+    <!-- 封装纯sql语法-->
+    <!-- 查询一个对象返回map-->
+    <select id="getBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回实体类-->
+    <select id="getBySqlReturnEntity" resultMap="ResultMapMeals">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回map列表-->
+    <select id="listBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询列表返回实体-->
+    <select id="listBySqlReturnEntity" resultMap="ResultMapMeals">
+        ${sql}
+    </select>
+
+    <!-- 查询分页-->
+    <select id="findBySqlRerturnEntity" resultMap="ResultMapMeals">
+        ${sql}
+    </select>
+
+    <!-- 通过sql修改-->
+    <update id="updateBysql">
+        ${sql}
+    </update>
+
+    <!-- 通过sql删除-->
+    <delete id="deleteBySql">
+        ${sql}
+    </delete>
+</mapper>
